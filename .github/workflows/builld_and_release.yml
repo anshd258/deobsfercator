@@ -70,7 +70,7 @@ jobs:
           path: build/macos/Build/Products/Release/deobfercator.app
 
   release-windows:
-    runs-on: ubantu-latest
+    runs-on: windows-latest
     needs: build
     steps:
       - name: Download Artifact
@@ -90,7 +90,7 @@ jobs:
           tag: v1.0.${{ github.run_number }}windows
 
   release-macos:
-    runs-on: ubantu-latest
+    runs-on: windows-latest
     needs: build-macos
     steps:
       - name: Download Artifact
