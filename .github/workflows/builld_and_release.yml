@@ -89,14 +89,23 @@ jobs:
           artifacts: "deobfercator.exe"
           tag: v1.0.${{ github.run_number }}windows
 
-  release-macos:
+  release:
     runs-on: windows-latest
-    needs: build-macos
+    needs:
+      - build-macos
+      - build
     steps:
-      - name: Download Artifact
+      - name: Download macOS Artifact
         uses: actions/download-artifact@v4
         with:
           name: release-deobfercator-app
+          path: artifacts/macos
+
+      - name: Download Windows Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: release-deobfercator-exe
+          path: artifacts/windows
 
       - name: Check dependencies
         run: |
@@ -106,5 +115,5 @@ jobs:
       - name: Releasing build
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "Contents/deobfercator.app"
-          tag: v1.0.${{ github.run_number }}macos
+          artifacts: "artifacts/macos/deobfercator.app, artifacts/windows/deobfercator.exe"
+          tag: v1.0.${{ github.run_number }}
