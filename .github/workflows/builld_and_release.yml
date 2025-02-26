@@ -69,26 +69,6 @@ jobs:
           name: release-deobfercator-app
           path: build/macos/Build/Products/Release/deobfercator.app
 
-  release-windows:
-    runs-on: windows-latest
-    needs: build
-    steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: release-deobfercator-exe
-
-      - name: Check dependencies
-        run: |
-          ls
-
-      # Releasing the build
-      - name: Releasing build
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "deobfercator.exe"
-          tag: v1.0.${{ github.run_number }}windows
-
   release:
     runs-on: windows-latest
     needs:
@@ -110,6 +90,7 @@ jobs:
       - name: Check dependencies
         run: |
           ls
+          
 
       # Releasing the build
       - name: Releasing build
