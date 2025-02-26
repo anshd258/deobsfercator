@@ -90,6 +90,8 @@ jobs:
       - name: Check dependencies
         run: |
           ls
+          cd artifacts/macos
+          ls
           
 
       # Releasing the build
