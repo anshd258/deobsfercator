@@ -67,7 +67,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release-deobfercator-app
-          path: build/macos/Build/Products/Release/deobfercator.app
+          path: build/macos/Build/Products/Release/deobfercator.app/Contents/MacOS/deobfercator.app
 
   release:
     runs-on: windows-latest
