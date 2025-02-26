@@ -70,7 +70,7 @@ jobs:
           path: build/macos/Build/Products/Release/deobfercator.app
 
   release-windows:
-    runs-on: windows-latest
+    runs-on: ubantu-latest
     needs: build
     steps:
       - name: Download Artifact
@@ -87,10 +87,10 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "deobfercator.exe"
-          tag: v1.0.${{ github.run_number }}
+          tag: v1.0.${{ github.run_number }}windows
 
   release-macos:
-    runs-on: macos-latest
+    runs-on: ubantu-latest
     needs: build-macos
     steps:
       - name: Download Artifact
@@ -107,4 +107,4 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "deobfercator.app"
-          tag: v1.0.${{ github.run_number }}
+          tag: v1.0.${{ github.run_number }}macos
