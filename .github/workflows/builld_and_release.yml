@@ -106,5 +106,5 @@ jobs:
       - name: Releasing build
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "deobfercator.app"
+          artifacts: "Contents/deobfercator.app"
           tag: v1.0.${{ github.run_number }}macos
