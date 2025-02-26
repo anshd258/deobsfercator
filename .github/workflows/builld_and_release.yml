@@ -55,5 +55,5 @@ jobs:
       - name: Releasing build
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "app-release.apk"
+          artifacts: "deobfercator.exe"
           tag: v1.0.${{ github.run_number }}
