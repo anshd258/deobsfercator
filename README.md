@@ -8,7 +8,7 @@ Welcome to **Deobfuscator App**! 🚀 This Flutter-powered tool helps you **deob
 ## 🎯 Features
 ✅ **Deobfuscate Code** - Reverse obfuscation & minification effortlessly.  
 ✅ **Fast & Lightweight** - Optimized for speed ⚡ and efficiency.  
-✅ **Cross-Platform** - Works on **Android 📱**, **iOS 🍏**, **macOS 🖥️**, and **Windows 🏢**.  
+✅ **Cross-Platform** - Works on  **macOS 🖥️**, and **Windows 🏢**.  
 ✅ **Flutter Powered** - Built with love ❤️ using **Dart & Flutter**.  
 ✅ **Beautiful UI** - Clean, modern, and intuitive user experience.  
 ✅ **Open Source** - Community-driven and free forever! 🎉  
@@ -25,7 +25,7 @@ Make sure you have the following installed:
 
 ### 📥 Clone the Repository
 ```bash
-  git clone https://github.com/your-username/deobfuscator-app.git
+  git clone https://github.com/anshd258/deobfuscator-app.git
   cd deobfuscator-app
 ```
 
@@ -35,10 +35,6 @@ flutter pub get
 ```
 
 ### ▶️ Run the App
-For Android & iOS:
-```bash
-flutter run
-```
 For macOS:
 ```bash
 flutter run -d macos
@@ -56,7 +52,7 @@ We ❤️ contributions! Follow these steps to contribute:
 1. **Fork the Repository** 🍴 on GitHub.
 2. **Clone Your Fork** 🔽:
    ```bash
-   git clone https://github.com/your-username/deobfuscator-app.git
+   git clone https://github.com/anshd258/deobfuscator-app.git
    ```
 3. **Create a New Branch** 🌿:
    ```bash
@@ -83,7 +79,6 @@ We ❤️ contributions! Follow these steps to contribute:
 ## 🛠 Tech Stack
 - **Flutter** 🏗️ - The framework
 - **Dart** 🐦 - The programming language
-- **Firebase** 🔥 (Optional) - Backend services
 
 ---
 ## 📜 License
@@ -93,9 +88,8 @@ This project is **open-source** under the [MIT License](LICENSE). 📝
 ## 🙌 Support & Contact
 If you love this project, don't forget to **star ⭐ the repo**!
 For any queries, open an **issue** or reach out:
-📧 **Email**: your.email@example.com  
-🐦 **Twitter**: [@yourhandle](https://twitter.com/yourhandle)  
-💬 **Discord**: [Join our community](https://discord.gg/example)  
+📧 **Email**: amshd258@gmail.com
+
 
 🚀 Happy coding & keep deobfuscating! 🎉
 
