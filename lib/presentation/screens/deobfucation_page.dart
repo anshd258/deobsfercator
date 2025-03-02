@@ -1,6 +1,9 @@
 import 'dart:io';
-import 'package:deobfercator/data/prefrence_service.dart';
+import 'package:deobfercator/data/services/prefrence_service.dart';
 import 'package:deobfercator/domain/deobfucation_repository.dart';
+import 'package:deobfercator/domain/google_sheets_repository.dart';
+import 'package:deobfercator/presentation/widgets/ask_ai_dialog.dart';
+import 'package:deobfercator/presentation/widgets/bug_post_dialog.dart';
 import 'package:deobfercator/presentation/widgets/deobfucation_form.dart';
 import 'package:deobfercator/presentation/widgets/history_list.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import '../../data/local_storage_service.dart';
+import '../../data/services/local_storage_service.dart';
 
 class DeobfuscatorPage extends StatefulWidget {
   @override
@@ -22,6 +25,7 @@ class _DeobfuscatorPageState extends State<DeobfuscatorPage> {
   String output = '';
   final TextEditingController _controller = TextEditingController();
   late DeobfuscationRepository repository;
+  late GoogleSheetsRepository _googleSheetsRepository;
 
   @override
   void initState() {
@@ -30,6 +34,7 @@ class _DeobfuscatorPageState extends State<DeobfuscatorPage> {
       localStorageService: LocalStorageService(),
       preferencesService: PreferencesService(),
     );
+    _googleSheetsRepository = GoogleSheetsRepository();
     _loadDebugSymbolsPath();
   }
 
@@ -149,6 +154,13 @@ class _DeobfuscatorPageState extends State<DeobfuscatorPage> {
       clearHistory: () {
         repository.clearHistory();
       },
+      onSubmit: (bug) async {
+        await _googleSheetsRepository.addBug(bug: bug).whenComplete(
+          () {
+            Navigator.pop(context);
+          },
+        );
+      },
     );
   }
 
@@ -217,14 +229,61 @@ class _DeobfuscatorPageState extends State<DeobfuscatorPage> {
                       maxSize: .8,
                       child: Padding(
                         padding: EdgeInsets.all(16.sp),
-                        child: ShadCard(
+                        child: SizedBox(
                           width: double.infinity,
-                          child: SingleChildScrollView(
-                            padding: EdgeInsets.all(12.0.sp),
-                            child: SelectableText(
-                              output,
-                              style: GoogleFonts.urbanist(fontSize: 14.sp),
-                            ),
+                          child: Stack(
+                            children: [
+                              Positioned.fill(
+                                child: ShadCard(
+                                  width: double.infinity,
+                                  child: SingleChildScrollView(
+                                    padding: EdgeInsets.all(12.0.sp),
+                                    child: SelectableText(
+                                      output,
+                                      style:
+                                          GoogleFonts.urbanist(fontSize: 14.sp),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              if (output.isNotEmpty) ...[
+                                Positioned(
+                                    right: 0,
+                                    child: ShadButton.outline(
+                                      onPressed: () {
+                                        showShadDialog(
+                                          context: context,
+                                          builder: (context) => BugReportDialog(
+                                            stackTrace: output,
+                                            onSubmit: (bug) async {
+                                              await _googleSheetsRepository
+                                                  .addBug(bug: bug)
+                                                  .whenComplete(
+                                                () {
+                                                  Navigator.pop(context);
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      child: Text("Add in Sheet"),
+                                    )),
+                                Positioned(
+                                    right: 125.w,
+                                    child: ShadButton.outline(
+                                      onPressed: () {
+                                        showShadDialog(
+                                          context: context,
+                                          builder: (context) => AskAIDialog(
+                                            stackTrace: output,
+                                          ),
+                                        );
+                                      },
+                                      child: Text("Solve via AI"),
+                                    ))
+                              ]
+                            ],
                           ),
                         ),
                       ),

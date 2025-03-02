@@ -1,6 +1,6 @@
-import 'package:deobfercator/data/prefrence_service.dart';
+import 'package:deobfercator/data/services/prefrence_service.dart';
 import 'package:process_run/process_run.dart';
-import '../data/local_storage_service.dart';
+import '../data/services/local_storage_service.dart';
 
 class DeobfuscationRepository {
   final LocalStorageService localStorageService;

@@ -1,3 +1,6 @@
+import 'package:deobfercator/data/models/bug_model.dart';
+import 'package:deobfercator/presentation/widgets/ask_ai_dialog.dart';
+import 'package:deobfercator/presentation/widgets/bug_post_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,8 +11,12 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 class HistoryList extends StatelessWidget {
   ValueListenable<Box<String>> listenable;
   void Function() clearHistory;
+  final Future<void> Function(BugModel bug) onSubmit;
   HistoryList(
-      {super.key, required this.listenable, required this.clearHistory});
+      {super.key,
+      required this.listenable,
+      required this.clearHistory,
+      required this.onSubmit});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -61,6 +68,31 @@ class HistoryList extends StatelessWidget {
                                 constraints:
                                     BoxConstraints.loose(Size(1000.w, 500.h)),
                                 variant: ShadDialogVariant.primary,
+                                actions: [
+                                  ShadButton.outline(
+                                    onPressed: () {
+                                      showShadDialog(
+                                        context: context,
+                                        builder: (context) => BugReportDialog(
+                                          stackTrace: trace,
+                                          onSubmit: onSubmit,
+                                        ),
+                                      );
+                                    },
+                                    child: Text("Add in Sheet"),
+                                  ),
+                                  ShadButton(
+                                    onPressed: () {
+                                      showShadDialog(
+                                        context: context,
+                                        builder: (context) => AskAIDialog(
+                                          stackTrace: trace,
+                                        ),
+                                      );
+                                    },
+                                    child: Text("Solve via AI"),
+                                  )
+                                ],
                                 closeIcon: TextButton(
                                   onPressed: () => Navigator.pop(context),
                                   child: Text(
